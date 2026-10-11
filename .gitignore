@@ -1,0 +1,13 @@
+# Dados da rede da Prefeitura não podem ser publicados
+dados/
+*.xlsx
+*.xls
+*.csv
+*.parquet
+*.kmz
+*.kml
+*.db
+*.duckdb
+.env
+__pycache__/
+.venv/
