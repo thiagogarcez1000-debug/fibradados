@@ -1,4 +1,4 @@
-# Regras dos eventos e da coleta (revisão pós-feedback – 27/10/2026)
+# Regras dos eventos e da coleta (revisão pós-feedback – 27/10/2026; atualizada em 31/10/2026)
 
 Documento criado para atender ao feedback da Proposta de Projeto (seções 5.3, 6.3 a 6.6 e 6.4).
 
@@ -15,6 +15,13 @@ A ausência de observação nunca é contada como tempo disponível nem como ind
 ## 2. Ciclos e lacunas
 - Intervalo nominal entre ciclos: 5 min. Cada ciclo grava um registro de controle (`ciclo_id`, início, fim, nº de pontos testados).
 - Há **lacuna de coleta** quando o intervalo entre dois ciclos gravados passa de 7,5 min (1,5 × o nominal). O período da lacuna é marcado como `sem_coleta` para todos os pontos.
+- **Ciclo inválido (revisão de 31/10/2026):** ciclo em que nenhum ponto respondeu, inclusive as OLTs. Indica falha do lado do coletor (rede ou servidor), e não queda dos pontos. O ciclo inteiro é tratado como `sem_coleta`. Caso real: 28/10/2026, 14:42–14:43, visto pelos dois coletores.
+- **Coletores simultâneos (revisão de 31/10/2026):** se dois processos gravarem ao mesmo tempo (ciclos com intervalo menor que 2,5 min), as séries são separadas pela fase do horário de início. A principal é a do processo que continua ativo (ou, sem essa informação, a mais longa); as outras servem só para conferência e nunca são somadas. Caso real: 28/10 a 31/10/2026; o processo duplicado foi encerrado em 31/10 às 10:58.
+
+## 2.1 Pontos sem resposta persistente (revisão de 31/10/2026)
+- Ponto que não respondeu em **nenhum** ciclo válido do período recebe a marca `sem_resposta_persistente`.
+- Ele **não** entra no MTTR nem na contagem de quedas, e a disponibilidade dele é apresentada à parte, nunca misturada com a dos pontos ativos. O motivo (desativado, sem energia, bloqueio de ping ou cadastro errado) é uma pendência de cadastro para a equipe, e não um evento.
+- Base: na primeira coleta (28 a 31/10/2026), 321 pontos nunca responderam, e 301 deles já constavam como OFFLINE no inventário de 03/10/2026.
 
 ## 3. Início, término e duração das quedas
 - **Queda confirmada:** dois ou mais ciclos seguidos com `sem_resposta`. Uma falha isolada (um único ciclo) não abre evento, mas o intervalo dela conta como indisponível.
